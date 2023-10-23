@@ -1,0 +1,26 @@
+pipeline {
+    agent {label 'jenkins_slave'}
+    tools {
+        maven 'maven-test'
+    }
+    stages {
+        stage ('checkout-scm'){
+            steps{
+                checkout scm
+            }
+        }
+        stage ('maven_build'){
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage ('tomcat_deploy'){
+            steps {
+                sshagent(['jenkins_tomcat']){
+                    
+                    sh "scp -o strictHostkeychecking=no target/maven-web-application.war ec2-user@43.205.243.134:/opt/tomcat9/webaspps"
+                }
+            }
+        }
+    }
+}
