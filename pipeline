@@ -1,26 +1,35 @@
 pipeline {
-    agent {label 'jenkins_slave'}
-    tools {
+    // add your slave label name
+    agent { label 'my_maven_slave'}
+    tools{
         maven 'maven-test'
     }
     stages {
-        stage ('checkout-scm'){
-            steps{
-                checkout scm
+        stage ('Checkout_SCM') {
+
+            steps {
+          	    
+	     checkout scm
             }
         }
-        stage ('maven_build'){
+
+        stage ('Maven_Build') {
+
             steps {
-                sh 'mvn clean package'
+               sh 'mvn clean package'
             }
         }
-        stage ('tomcat_deploy'){
+        
+        stage ('Deploy_Tomcat') {
+
             steps {
-                sshagent(['tomcat-webserver']){
+               sshagent(['tomcat-web-server']) 
+              sh 'scp -o StrictHostKeyChecking=no  target/maven-web-application.war  ec2-user@18.234.174.240:/opt/tomcat9/webapps'
+            
                     
-                    sh "scp -o strictHostkeychecking=no target/maven-web-application.war ec2-user@13.233.196.219:/opt/tomcat9/webaspps"
-                }
             }
+         
         }
+        
     }
 }
