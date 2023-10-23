@@ -16,9 +16,9 @@ pipeline {
         }
         stage ('tomcat_deploy'){
             steps {
-                sshagent(['jenkins_tomcat']){
+                sshagent(['tomcat-webserver']){
                     
-                    sh "scp -o strictHostkeychecking=no target/maven-web-application.war ec2-user@13.235.104.169:/opt/tomcat9/webaspps"
+                    sh "scp -o strictHostkeychecking=no target/maven-web-application.war ec2-user@13.233.196.219:/opt/tomcat9/webaspps"
                 }
             }
         }
