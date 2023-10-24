@@ -9,7 +9,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage ('maven-build'){
+        stage ('maven-builds'){
             steps{
                sh 'mvn clean package'
             }
