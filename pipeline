@@ -3,23 +3,30 @@ pipeline{
     tools {
         maven 'maven_test'
     }
-    stages{
+
+    stages {
         stage ('checkout_scm'){
+
             steps {
+
                 checkout scm
             }
         }
 
         stage ('maven_build'){
+
             steps {
+
                 sh 'mvn clean package'
             }
         }
 
-        stage ('tomcat_build'){
-            steps {
+        stage ('tomcat_deploy'){
+
+            steps{
                 sshagent (['tomcat_server']){
-                    sh 'scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.110.186.168:/opt/tomcat9/webapps'
+
+                    sh 'scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.234.136.249:/opt/tomcat9/webapps'
                 }
             }
         }
