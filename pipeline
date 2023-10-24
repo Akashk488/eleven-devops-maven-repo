@@ -5,8 +5,8 @@ pipeline {
     }
     stages{
         stage ('checkout_scm'){
-            steps{
-                scheckout scm
+            steps {
+                checkout scm
             }
         }
         stage ('maven_build'){
