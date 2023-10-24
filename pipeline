@@ -1,10 +1,10 @@
 pipeline{
-    agent {label 'jenkins_slave'}
+    agent { label 'jenkins_slave'}
     tools {
         maven 'maven_test'
     }
     stages {
-        stage ('checkou_scm'){
+        stage ('checkout_scm'){
             steps{
                 sh 'checkout scm'
             }
