@@ -21,7 +21,7 @@ pipeline{
             }
         }
 
-        stage ('tomcat_deploy'){
+        stage ('tomcat_deploys'){
 
             steps{
                 sshagent (['tomcat_server']){
