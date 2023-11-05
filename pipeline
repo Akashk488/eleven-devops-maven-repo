@@ -17,16 +17,16 @@ pipeline {
     
     stage ('dockerbuid'){
          steps {
-            sh 'docker build -t akashk488/project:v1 .'
+            sh 'sudo docker build -t akashk488/project:v1 .'
          }
 
     }
     stage ('docker_push'){
       
       steps {
-      sh 'docker login -u akashk -p dckr_pat_Qe2H-N1SGe8ADErPpglu-JCr2Ew'
+      sh 'sudo docker login -u akashk -p dckr_pat_Qe2H-N1SGe8ADErPpglu-JCr2Ew'
       
-      sh 'docker push kashk488/project:v1 ' 
+      sh 'sudo docker push kashk488/project:v1 ' 
 
      }
 
