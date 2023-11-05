@@ -24,9 +24,13 @@ pipeline {
     stage ('docker_push'){
       
       steps {
-      sh 'sudo docker login -u akashk -p dckr_pat_Qe2H-N1SGe8ADErPpglu-JCr2Ew'
+        withCredentials([string(credentialsId: 'dockerpas', variable: 'dockerpas')]) {
+     
+     sh 'sudo docker login -u akashk488 -p ${dockerpas}'
       
-      sh 'sudo docker push kashk488/project:v1 ' 
+      sh 'sudo docker push akashk488/project:v1' 
+}
+     
 
      }
 
