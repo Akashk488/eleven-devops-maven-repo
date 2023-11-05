@@ -13,7 +13,7 @@ pipeline {
     
     stage ('dockerbuid'){
          steps {
-            sh 'docker build -t akashk488/project:v1 .'
+            sh 'docker build -t akashk488/tomee:v1 .'
          }
 
     }
@@ -24,7 +24,7 @@ pipeline {
      
      sh 'docker login -u akashk488 -p ${dockerpas}'
       
-      sh 'docker push akashk488/project:v1' 
+      sh 'docker push akashk488/tomee:v1' 
 }
      
 
