@@ -13,7 +13,10 @@ pipeline {
     
     stage ('dockerbuid'){
          steps {
-            sh 'docker build -t akashk488/tomee:v1 .'
+            script {
+             sh 'docker build -t akashk488/tomee:v1 .'
+            }
+            
          }
 
     }
