@@ -1,34 +1,37 @@
-pipeline{
+pipeline {
+
     agent {label 'jenkins_slave'}
+
     tools {
-        maven 'maven_test'
+        dockerTool 'docker_new'
     }
 
-    stages {
-        stage ('checkout_scm'){
+   stages {
 
-            steps {
-
-                checkout scm
-            }
+    stage ('Checkout_scm'){
+        steps{
+              checkout scm
         }
-
-        stage ('maven_build'){
-
-            steps {
-
-                sh 'mvn package'
-            }
-        }
-
-        stage ('tomcat_deploy'){
-
-            steps{
-                sshagent (['tomcat_server']){
-
-                    sh 'scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@65.2.31.105:/opt/tomcat9/webapps'
-                }
-            }
-        }
+        
     }
-}
+    
+    stage ('dockerbuid'){
+         steps {
+            sh 'docker build -t akashk488/project:v1 .'
+         }
+
+    }
+    stage ('docker_push'){
+      
+      steps {
+      sh 'docker login -u akashk -p dckr_pat_Qe2H-N1SGe8ADErPpglu-JCr2Ew'
+      
+      sh 'docker push kashk488/project:v1 ' 
+
+     }
+
+
+      }
+    }
+    
+   } 
