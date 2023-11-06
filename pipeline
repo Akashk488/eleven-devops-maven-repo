@@ -13,7 +13,7 @@ pipeline {
     
     stage ('dockerbuid'){
          steps {
-             sh 'docker build -t akashk488/newjavaproject:v1 .'
+             sh 'docker build -t akashk488/newjavaproject:v2 .'
             }
             
          }
@@ -22,7 +22,7 @@ pipeline {
 
       steps {
 
-        sh 'docker run --name jP -p 8097:8080 -d akashk488/newjavaproject:v1 '
+        sh 'docker run --name jP2 -p 8097:8080 -d akashk488/newjavaproject:v2 '
       }
     }
     
@@ -33,7 +33,7 @@ pipeline {
      
      sh 'docker login -u akashk488 -p ${dockerpas}'
       
-      sh 'docker push akashk488/newjavaproject:v1' 
+      sh 'docker push akashk488/newjavaproject:v2' 
 }
      
 
