@@ -18,13 +18,6 @@ pipeline {
             
          }
 
-    stage ('conatnization'){
-
-      steps {
-
-        sh 'docker run --name jP2 -p 8097:8080 -d akashk488/newjavaproject:v2 '
-      }
-    }
     
     stage ('docker_push'){
       
@@ -41,6 +34,14 @@ pipeline {
 
 
       }
+    stage ('conatnization'){
+
+      steps {
+
+        sh 'docker run --name jP3 -p 8097:8080 -d akashk488/newjavaproject:v2 '
+      }
+    }
+
     }
     
    } 
