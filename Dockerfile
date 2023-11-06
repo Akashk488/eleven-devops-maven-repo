@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM alpine
 WORKDIR /opt
 RUN useradd akash && apt update && apt install git -y && apt install default-jre -y && apt install maven -y && git clone https://github.com/Akashk488/eleven-devops-maven-repo.git && cd eleven-devops-maven-repo && mvn clean package
 USER akash
