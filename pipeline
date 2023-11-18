@@ -1,47 +1,27 @@
 pipeline {
-
-    agent {label 'jenkins_slave'}
-
-   stages {
-
-    stage ('Checkout_scm'){
-        steps{
-              checkout scm
-        }
-        
-    }
+    agent { lable 'jenkins_slave'}
+    tools
+    {maven_test}
     
-    stage ('dockerbuid'){
-         steps {
-             sh 'docker build -t akashk488/newjavaproject:v3 .'
+    stages{
+        stage ('checkout_scm'){
+            steps {
+                checkout scm
             }
-            
-         }
+        }
 
-    
-    stage ('docker_push'){
-      
-      steps {
-        withCredentials([string(credentialsId: 'dockerpas', variable: 'dockerpas')]) {
-     
-     sh 'docker login -u akashk488 -p ${dockerpas}'
-      
-      sh 'docker push akashk488/newjavaproject:v3' 
+        stage ('maven_build'){
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage ('tomcat-deploy'){
+            steps {
+                sshagent(['tomcat-web']) {
+                   sh 'scp -o StrictHotKeyChecking=no /target/maven-web-application ec2-user@43.204.97.154:/opt/tomcat9/webapps'
+               }
+            }
+        }
+    }
 }
-     
-
-     }
-
-
-      }
-    stage ('conatnization'){
-
-      steps {
-
-        sh 'docker run --name jP3 -p 8097:8080 -d akashk488/newjavaproject:v2 '
-      }
-    }
-
-    }
-    
-   } 
