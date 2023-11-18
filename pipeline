@@ -1,7 +1,8 @@
 pipeline {
     agent { lable 'jenkins_slave'}
-    tools
-    {maven_test}
+    tools{
+        maven 'maven_test'
+        }
     
     stages{
         stage ('checkout_scm'){
